@@ -46,7 +46,7 @@
       <section class="card">
         <div class="grid">
           <label>Valor (R$) <input id="amount" type="number" min="0.01" step="0.01" value="5.00" /></label>
-          <label>Método <select id="method"><option value="debit">Débito</option><option value="credit">Crédito</option><option value="pix">Pix</option></select></label>
+          <label>Método <select id="method"><option value="">Escolher no SmartPOS</option><option value="debit">Débito</option><option value="credit">Crédito</option><option value="pix">Pix</option></select></label>
           <label id="installments-field" style="display: none;">Parcelas <input id="installments" type="number" min="1" max="12" step="1" value="1" /></label>
           <label>Sessão <input id="session" value="test-001" /></label>
           <label class="checkbox"><input id="auto-session" type="checkbox" checked /> Gerar sessão automaticamente</label>
@@ -175,7 +175,7 @@
           type: "simulator.payment_create",
           sessionId: sessionId(),
           amount,
-          paymentMethod,
+          ...(paymentMethod ? { paymentMethod } : {}),
           ...(paymentMethod === "credit" ? { installments } : {})
         });
       };

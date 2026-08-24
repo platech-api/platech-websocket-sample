@@ -291,8 +291,8 @@ dashboardWss.on("connection", socket => {
 
     if (command.type === "simulator.payment_create") {
       const amount = command.amount;
-      const paymentMethod = command.paymentMethod as PaymentMethod | undefined;
-      if (!amount || !paymentMethod || !["debit", "credit", "pix"].includes(paymentMethod)) {
+      const paymentMethod = command.paymentMethod || undefined;
+      if (!amount || (paymentMethod && !["debit", "credit", "pix"].includes(paymentMethod))) {
         send(socket, { type: "simulator.error", message: "Valor ou método inválido" });
         return;
       }
@@ -320,7 +320,7 @@ dashboardWss.on("connection", socket => {
         messageId: messageId(),
         sessionId: command.sessionId ?? `test-${Date.now()}`,
         amount,
-        paymentMethod,
+        ...(paymentMethod ? { paymentMethod: paymentMethod as PaymentMethod } : {}),
         ...(paymentMethod === "credit" ? { installments } : {}),
         description: "Pagamento de teste"
       };

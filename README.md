@@ -31,6 +31,7 @@ ws://IP_DO_SERVIDOR:8080/v1/terminal
 
 ## Painel
 
+- Escolha do meio de pagamento no SmartPOS quando o método não for informado.
 - Débito, crédito de 1 a 12 parcelas e Pix.
 - Cancelamento de uma operação em andamento.
 - Consulta das transações disponíveis no SmartPOS.

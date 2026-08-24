@@ -9,7 +9,10 @@ export const terminalMessageSchema = z.object({
   status: z.string().optional(),
   transactionId: z.string().optional(),
   amount: z.number().int().positive().optional(),
-  paymentMethod: z.enum(["debit", "credit", "pix"]).optional(),
+  paymentMethod: z.union([
+    z.enum(["debit", "credit", "pix"]),
+    z.literal("")
+  ]).optional(),
   installments: z.number().int().optional(),
   printCustomerReceipt: z.boolean().optional(),
   reason: z.string().optional()
@@ -24,7 +27,7 @@ export interface PaymentCreateMessage {
   messageId: string;
   sessionId: string;
   amount: number;
-  paymentMethod: PaymentMethod;
+  paymentMethod?: PaymentMethod;
   installments?: number;
   description?: string;
 }
