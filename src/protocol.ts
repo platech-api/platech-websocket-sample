@@ -30,6 +30,7 @@ export interface PaymentCreateMessage {
   paymentMethod?: PaymentMethod;
   installments?: number;
   description?: string;
+  printCustomerReceipt: boolean;
 }
 
 export interface TransactionsListMessage {

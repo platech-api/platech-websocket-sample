@@ -322,7 +322,8 @@ dashboardWss.on("connection", socket => {
         amount,
         ...(paymentMethod ? { paymentMethod: paymentMethod as PaymentMethod } : {}),
         ...(paymentMethod === "credit" ? { installments } : {}),
-        description: "Pagamento de teste"
+        description: "Pagamento de teste",
+        printCustomerReceipt: command.printCustomerReceipt ?? true
       };
       if (!send(terminal, payment)) send(socket, { type: "simulator.error", message: "SmartPOS não conectado" });
       else broadcast({ type: "log", direction: "gateway_to_terminal", payload: payment });
